@@ -7,6 +7,8 @@ import drfProvider from 'ra-data-django-rest-framework';
 import simpleRestProvider from 'ra-data-simple-rest';
 
 import StoreList from './posts';
+import CategoriesList from "./categories";
+import StoreEdit from "./StoreEdit";
 import authProvider from './authProvider';
 
 const httpClient = (url, options = {}) => {
@@ -19,12 +21,12 @@ const httpClient = (url, options = {}) => {
     return fetchUtils.fetchJson(url, options);
 };
 const dataProvider = drfProvider('https://staging.vico.ai/analytics', httpClient);
-console.log(dataProvider)
 const App = () => (
     <Admin dataProvider={dataProvider} authProvider={authProvider}>
-        <Resource name="stores" list={StoreList}/>
+        <Resource name="stores?5" options={{ label: 'Tiendas' }} list={StoreList} edit={StoreEdit}/>
+        <Resource name="roles" list={CategoriesList}/>
     </Admin>
-    // dataProvider.getMany('stores', { id: [1] })
+    
 );
   
 
